@@ -427,6 +427,9 @@ for issue in jira_issues:
             if ADD_A_LINK:
                 description = description + "\n\nImported from Jira issue [%(k)s](%(u)sbrowse/%(k)s)" % {'k': issue['key'], 'u': JIRA_URL}
 
+            # Add the reporter to the description
+            description = description + "Originally reported by {}\n\n".format(reporter)
+            
             # Add the Jira sprint information to Gitlab issue description
             if ADD_SPRINT_COMMENT:
                 description = description + "\n\nOriginal Jira sprint name {}".format(milestone_name)
