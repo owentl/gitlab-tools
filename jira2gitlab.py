@@ -2,6 +2,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 import re
 from io import StringIO
+from io import BytesIO
 import uuid
 import json
 import gitlab
@@ -213,7 +214,7 @@ def move_attachements(attachments,GL_PROJECT_ID):
                 verify=VERIFY_SSL_CERTIFICATE,
             )
 
-            _content = StringIO(_file.content)
+            _content = BytesIO(_file.content)
 
             if GITLAB_SUDO:
                 GITLAB_HEADERS['SUDO'] = resolve_login(author)
@@ -234,7 +235,7 @@ def move_attachements(attachments,GL_PROJECT_ID):
 
             # now we got the upload URL. Let's post the comment with an
             # attachment
-            if file_info.has_key('url'):
+            if 'url' in file_info:
                 key = "!%s[^!]*!" % attachment['filename']
                 value = "![%s](%s)" % (
                     attachment['filename'], file_info['url'])
