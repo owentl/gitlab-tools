@@ -205,7 +205,7 @@ def move_attachements(attachments,GL_PROJECT_ID):
     replacements = {}
     if len(attachments):
         for attachment in attachments:
-            author = attachment['author']['name']
+            author = attachment['author']['displayName']
 
             _file = requests.get(
                 attachment['content'],
